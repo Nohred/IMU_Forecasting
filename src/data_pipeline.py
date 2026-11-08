@@ -41,6 +41,11 @@ def apply_scaler(data, scaler_params):
     std = np.array(scaler_params["std"])
     return (data - mean) / std
 
+def load_scaler(scaler_path="data/processed/scaler.json"):
+    with open(scaler_path, "r") as f:
+        scaler_params = json.load(f)
+    return scaler_params
+
 
 def create_sliding_windows(data, seq_length):
     X, y = [], []

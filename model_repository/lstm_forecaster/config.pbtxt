@@ -1,0 +1,25 @@
+name: "lstm_forecaster"
+platform: "onnxruntime_onnx"
+max_batch_size: 256
+
+input [
+  {
+    name: "input"
+    data_type: TYPE_FP32
+    dims: [ 50, 6 ] 
+  }
+]
+
+output [
+  {
+    name: "output"
+    data_type: TYPE_FP32
+    dims: [ 6 ]
+  }
+]
+
+# Optimización para MLOps: Agrupa peticiones individuales concurrentes 
+# en un solo batch en GPU (esperando máximo 1 milisegundo)
+dynamic_batching {
+  max_queue_delay_microseconds: 1000
+}
