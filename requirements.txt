@@ -5,3 +5,4 @@ scipy>=1.11,<2
 matplotlib>=3.8,<4
 onnx>=1.16,<2
 pytest>=8,<9
+tritonclient[http]>=2.48,<3
