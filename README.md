@@ -118,6 +118,25 @@ Truth EuRoC para las condiciones iniciales. Guarda la figura en
 
 ## Despliegue MLOps con Triton
 
+Para ejecutar Triton con GPU se requiere tener instalado el driver NVIDIA y
+NVIDIA Container Toolkit en el host. Verifica primero:
+
+```bash
+nvidia-smi
+docker info --format '{{json .Runtimes}}'
+```
+
+La salida de Docker debe incluir un runtime NVIDIA. En Ubuntu, después de
+instalar `nvidia-container-toolkit`, configúralo y reinicia Docker:
+
+```bash
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
+docker run --rm --gpus all nvidia/cuda:12.6.3-base-ubuntu24.04 nvidia-smi
+```
+
+La prueba `docker run` debe mostrar la GPU antes de iniciar Compose.
+
 El Compose debe ejecutarse desde la raíz del proyecto. Las rutas del archivo
 Compose están definidas relativas a `deploy/docker-compose.yml`.
 
